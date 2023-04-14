@@ -1,0 +1,23 @@
+[tool.pdm]
+[tool.pdm.dev-dependencies]
+dev = [
+    "nox>=2022.11.21",
+    "pre-commit>=2.21.0",
+    "black>=23.3.0",
+]
+
+[project]
+name = "pdm-nox-dev-template"
+version = "0.1.0"
+description = "Template for python projects managed with pdm and tested with nox"
+authors = [
+    {name = "sharpencrag", email = "ed.whetstone@gmail.com"},
+]
+dependencies = []
+requires-python = ">=3.7"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
