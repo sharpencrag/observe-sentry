@@ -7,14 +7,17 @@ dev = [
 ]
 
 [project]
-name = "pdm-nox-dev-template"
-version = "0.1.0"
-description = "Template for python projects managed with pdm and tested with nox"
+name = "observe-sentry"
+version = "0.0.1"
+description = "Sentry.io telemetry via Observatory"
 authors = [
-    {name = "sharpencrag", email = "ed.whetstone@gmail.com"},
+    {name = "sharpencrag / Ed Whetstone", email = "ed.whetstone@gmail.com"},
 ]
-dependencies = []
-requires-python = ">=3.7"
+dependencies = [
+    "observatory>=2.0.0",
+    "sentry-sdk>=1.19.1",
+]
+requires-python = ">=3.11"
 readme = "README.md"
 license = {text = "MIT"}
 
