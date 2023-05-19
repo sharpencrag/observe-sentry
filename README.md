@@ -9,7 +9,7 @@ Before Running
 
 Two environment variables must be set before using this utility:
 
-- `SENTRY_DNS`, a credentialed URL used to connect to our Sentry account.  This
+- `SENTRY_DSN`, a credentialed URL used to connect to our Sentry account.  This
   value can be found on the sentry site under Settings|Projects|Instrumentation
 
 - `SENTRY_SAMPLE_RATE`, a 0 to 1 floating point number representing the

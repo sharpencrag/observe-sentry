@@ -70,14 +70,14 @@ def _telemetry(func):
     return _wrapped_func
 
 
-def init(sentry_dns=None, sample_rate=None, raise_internal_exceptions=False,
+def init(sentry_dsn=None, sample_rate=None, raise_internal_exceptions=False,
          integrations=None, logger=None):
     """Initializes sentry and does additional setup for internal use.
 
     Args:
 
-        sentry_dns (str, optional): Credentialed URL for a specific sentry
-            Project. If not provided, the DNS will be obtained from an
+        sentry_dsn (str, optional): Credentialed URL for a specific sentry
+            Project. If not provided, the DSN will be obtained from an
             environment variable. Defaults to None.
 
         sample_rate (float, optional): Percentage of events (both errors and
@@ -133,15 +133,15 @@ def init(sentry_dns=None, sample_rate=None, raise_internal_exceptions=False,
 
     # ----------------------------------------------------------- Sentry Init #
     try:
-        sentry_dns = sentry_dns or os.environ["SENTRY_DNS"]
+        sentry_dsn = sentry_dsn or os.environ["SENTRY_DSN"]
     except KeyError:
-        raise TelemetryError(failed_init_msg + " No sentry DNS found!")
+        raise TelemetryError(failed_init_msg + " No sentry DSN found!")
 
     # the sample rate defaults to the value at the top of this module
     sample_rate = sample_rate or float(os.environ.get("SENTRY_SAMPLE_RATE", 1.0))
 
     try:
-        sentry_sdk.init(sentry_dns, traces_sample_rate=sample_rate,
+        sentry_sdk.init(sentry_dsn, traces_sample_rate=sample_rate,
                         integrations=integrations)
     except Exception:
         logger.error(failed_init_msg + " Internal sentry init error.")

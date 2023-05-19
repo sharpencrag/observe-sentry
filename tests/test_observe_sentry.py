@@ -38,7 +38,7 @@ class TestTelemetryDecorator(unittest.TestCase):
         self.assertEqual(warning.call_count, 0)
 
 
-@mock.patch.dict("os.environ", {"SENTRY_DNS": "", "SENTRY_SAMPLE_RATE": "0.25"})
+@mock.patch.dict("os.environ", {"SENTRY_DSN": "", "SENTRY_SAMPLE_RATE": "0.25"})
 @mock.patch("sentry_sdk.init")  # prevent sentry connection
 class TestTelemetryInit(unittest.TestCase):
 
@@ -55,9 +55,9 @@ class TestTelemetryInit(unittest.TestCase):
         observe_sentry.init()
         warning.assert_called()
 
-    def test_telemetry_init_fails_no_dns(self, _):
+    def test_telemetry_init_fails_no_dsn(self, _):
         copied_env = dict(os.environ)
-        copied_env.pop("SENTRY_DNS")
+        copied_env.pop("SENTRY_DSN")
         with self.assertRaises(observe_sentry.TelemetryError):
             with mock.patch.dict("os.environ", copied_env, clear=True):
                 observe_sentry.init(raise_internal_exceptions=True)
@@ -86,7 +86,7 @@ class TestTelemetryInit(unittest.TestCase):
         self.assertTrue(observe_sentry._RAISES_EXCEPTIONS)
 
 
-@mock.patch.dict("os.environ", {"SENTRY_DNS": "", "SENTRY_SAMPLE_RATE": "0.25"})
+@mock.patch.dict("os.environ", {"SENTRY_DSN": "", "SENTRY_SAMPLE_RATE": "0.25"})
 @mock.patch("sentry_sdk.init", mocked_sentry_init)
 @mock.patch("sentry_sdk.Hub")
 class TestTelemetryEventIntegration(unittest.TestCase):
